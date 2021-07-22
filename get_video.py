@@ -9,20 +9,20 @@ COLOR = (0, 0, 0)
 STROKE = 2
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
-MODE = 'opencv_cnn'
-THRESHOLD = 0.9
+MODE = 'mtcnn'
+THRESHOLD = 0.75
 
 if __name__ == '__main__' :
     video_path = glob.glob(os.path.join(VIDEO_PATH, '*.avi'))
 
-    video_file = video_path[0]
+    video_file = video_path[2]
 
     cap = cv2.VideoCapture(video_file)
     width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
     fps = cap.get(cv2.CAP_PROP_FPS)
 
-    save_path = os.path.join(VIDEO_PATH, os.path.basename(video_file).split('.')[0] + '_resutls.avi')
+    save_path = os.path.join(VIDEO_PATH, os.path.basename(video_file).split('.')[0] + '_' + str(MODE) + '_resutls.avi')
     out = cv2.VideoWriter(filename=save_path,
                           fourcc=FOURCC,
                           fps=fps,
