@@ -128,7 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+# add ignore files
 *.png
 .*
 images/
 src/
+eval_results/

@@ -9,13 +9,13 @@ COLOR = (0, 0, 0)
 STROKE = 2
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
-MODE = 'mtcnn'
+MODE = 'mtcnn' # Haar, dlib, opencv_cnn, mmod, mtcnn
 THRESHOLD = 0.75
 
 if __name__ == '__main__' :
     video_path = glob.glob(os.path.join(VIDEO_PATH, '*.avi'))
 
-    video_file = video_path[2]
+    video_file = video_path[3]
 
     cap = cv2.VideoCapture(video_file)
     width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
