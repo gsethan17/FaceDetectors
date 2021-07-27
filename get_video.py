@@ -9,20 +9,21 @@ COLOR = (0, 0, 0)
 STROKE = 2
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
-MODE = 'mtcnn' # Haar, dlib, opencv_cnn, mmod, mtcnn
-THRESHOLD = 0.75
+MODE = 'mmod' # Haar, dlib, opencv_cnn, mmod, mtcnn
+THRESHOLD = 0.50
 
 if __name__ == '__main__' :
     video_path = glob.glob(os.path.join(VIDEO_PATH, '*.avi'))
 
-    video_file = video_path[3]
+    video_file = video_path[2]
+    print(video_file)
 
     cap = cv2.VideoCapture(video_file)
     width = cap.get(cv2.CAP_PROP_FRAME_WIDTH)
     height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
     fps = cap.get(cv2.CAP_PROP_FPS)
 
-    save_path = os.path.join(VIDEO_PATH, os.path.basename(video_file).split('.')[0] + '_' + str(MODE) + '_resutls.avi')
+    save_path = os.path.join(VIDEO_PATH, os.path.basename(video_file).split('.')[0] + '_' + str(MODE) + '_' + str(THRESHOLD) + '.avi')
     out = cv2.VideoWriter(filename=save_path,
                           fourcc=FOURCC,
                           fps=fps,
