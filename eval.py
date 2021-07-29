@@ -6,9 +6,9 @@ from detectors import face_detector, draw_detection
 
 IMAGE_PATH = '/home/gsethan/Documents/DMS/FrontView_IR_Samples/test_images'
 
-MODE = 'mtcnn' # opencv_cnn, mmod, mtcnn
+MODE = 'mmod' # opencv_cnn, mmod, mtcnn
 THRESHOLD = 0.1
-AP_RATE = 0.95    # 0.95, 0.75, 0.50
+AP_RATE = 0.50    # 0.95, 0.75, 0.50
 
 def get_gt(image_path, shape) :
     name = os.path.basename(image_path).split('.')[0]
@@ -56,8 +56,18 @@ def get_iou(gt, detections) :
         num = (bottom_inside - top_inside) * (right_inside - left_inside)
         gt_area = (gt['rightbottom'][0][1] - gt['lefttop'][0][1]) * (gt['rightbottom'][0][0] - gt['lefttop'][0][0])
         detection_area = (detections['rightbottom'][i][1] - detections['lefttop'][i][1]) * (detections['rightbottom'][i][0] - detections['lefttop'][i][0])
+        print("---------------------------------------------------")
+        print(detections['confidence'][i])
+        print(top_inside, bottom_inside, right_inside, left_inside)
+        print(gt['lefttop'], gt['rightbottom'])
+        print(detections['lefttop'], detections['rightbottom'])
+        print(num)
+        print(gt_area)
+        print(detection_area)
 
         det = gt_area + detection_area - num
+        print(det)
+        print("---------------------------------------------------")
 
         if num / det >= AP_RATE :
             ious['count'] += 1
@@ -118,7 +128,10 @@ if __name__ == '__main__' :
         results += result['results']
         confidence += result['confidence']
 
-        iou_img = draw_detection(result_img, IOUs, color = (255, 0, 0))
+        for c, con in enumerate(result['confidence']) :
+            if con > 1.09 :
+                iou_img = draw_detection(result_img, IOUs, color = (255, 0, 0), show=True)
+                print(IOUs['value'][c])
 
     print(MODE)
     print("Number of test images : ", i+1)
@@ -134,6 +147,7 @@ if __name__ == '__main__' :
 
     flag = 0
     prev_recall = 0
+    print(confidence_sorted)
 
     for num_detect, conf in enumerate(confidence_sorted) :
 
