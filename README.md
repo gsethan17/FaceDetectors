@@ -1,6 +1,24 @@
 # FaceDetectors
 Compare latency and accuracy of face detection algorithm with my own video data set.
 
+# Dlib compile
+to use dlib's dnn module with Nvidia GPUs, CUDA, and cuDNN.  
+The following descriptions were written by referring to [Ref.1](https://hongjong.tistory.com/15)
+
+1. download git for [dlib](https://github.com/davisking/dlib)
+    * `git clone https://github.com/davisking/dlib.git`
+    * move to folder, `cd dlib`
+    * make new directory, `mkdir build`
+    * move to new directory, `cd build`
+2. build the dlib with cuda setup
+    * set the config for using cuda, `cmake .. -DDLIB_USE_CUDA=1 -DUSE_AVX_INSTRUCTIONS=1`
+    * build dlib with cmake, `cmake --build .`
+3. setup the dlib on python
+    * move to parent folder, `cd ..`
+    * setup on python, `python setup.py install`
+4. final check
+    * can check using gpu with following command, `dlib.DLIB_USE_CUDA`  
+
 
 # OpenCV compile
 to use OpenCV's dnn module with Nvidia GPUs, CUDA, and cuDNN.  
